@@ -4,7 +4,7 @@ function closeModal() {
 
 async function sendText() {
     const text = document.getElementById('textInput').value;
-    const response = await fetch('http://127.0.0.1:5000/calculate', {
+    const response = await fetch('http://121.4.252.17:5000/calculate', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -42,26 +42,26 @@ function showDescription(description) {
 }
 
 async function getDataPractice() {
-    const response = await fetch('http://127.0.0.1:5000/get_data_practice');
+    const response = await fetch('http://121.4.252.17:5000/get_data_practice');
     const data = await response.json();
     document.getElementById('textInput').value = data;
 }
 
 async function getNews() {
-    const response = await fetch('http://127.0.0.1:5000/get_news');
+    const response = await fetch('http://121.4.252.17:5000/get_news');
     const data = await response.json();
     document.getElementById('textInput').value = data;
 }
 
 async function getLabel() {
-    const response = await fetch('http://127.0.0.1:5000/get_label');
+    const response = await fetch('http://121.4.252.17:5000/get_label');
     const data = await response.json();
     document.getElementById('textInput').value = JSON.stringify(data, null, 2);
 }
 
 async function calculateDataPractice() {
     const text = document.getElementById('textInput').value;
-    const response = await fetch('http://127.0.0.1:5000/calculate_with_data_practice', {
+    const response = await fetch('http://121.4.252.17:5000/calculate_with_data_practice', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -88,7 +88,7 @@ function filterTags() {
 
 async function generateChart() {
     const text = document.getElementById('textInput').value;
-    const response = await fetch('http://127.0.0.1:5000/generate_chart', {
+    const response = await fetch('http://121.4.252.17:5000/generate_chart', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
