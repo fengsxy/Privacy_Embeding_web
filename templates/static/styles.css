@@ -1,0 +1,110 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.container {
+    display: flex;
+    flex-direction: row; /* 改为横向布局 */
+    width: 90%; /* 增加宽度 */
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    height: 80vh; /* 增加高度 */
+}
+.input-section, .output-section {
+    padding: 20px;
+}
+.input-section {
+    width: 60%; /* 增加宽度 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.input-section textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    height: 200px; /* 增加高度 */
+    resize: vertical; /* 允许垂直调整大小 */
+    font-size: 18px; /* 增加字体大小 */
+}
+.input-section .button-group {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 10px;
+}
+.input-section button {
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    flex: 1;
+    margin: 0 5px;
+}
+.input-section button:hover {
+    background-color: #0056b3;
+}
+.output-section {
+    width: 35%; /* 增加宽度 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-height: 600px; /* 增加高度 */
+    overflow-y: auto;
+}
+.output-section .tag {
+    padding: 10px;
+    margin: 5px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.output-section .tag:hover {
+    background-color: #ddd;
+}
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1050; /* 确保模态框在其他元素之上 */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+#chart {
+    width: 100%;
+    height: 400px;
+    margin-top: 20px;
+}

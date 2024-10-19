@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Text Similarity</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="./static/styles.css" rel="stylesheet">
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.3.2/dist/echarts.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="input-section">
+            <textarea id="textInput" placeholder="Enter text here..."></textarea>
+            <div class="button-group">
+                <button onclick="getDataPractice()" class="btn btn-secondary">Get Data Practice</button>
+                <button onclick="getLabel()" class="btn btn-secondary">Get Label</button>
+                <button onclick="getNews()" class="btn btn-secondary">Get News</button>
+                <button onclick="calculateDataPractice()" class="btn btn-secondary">Calculate Data Practice</button>
+                <button onclick="sendText()" class="btn btn-primary">Calculate Label</button>
+                <button onclick="generateChart()" class="btn btn-primary">Generate Chart</button>
+            </div>
+            <div id="chart"></div> <!-- 将图表部分移动到按钮下方 -->
+        </div>
+        <div class="output-section">
+            <div id="tagsOutput"></div>
+        </div>
+    </div>
+
+    <!-- Modal for showing tag descriptions -->
+    <div id="descriptionModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <p id="modalDescription"></p>
+        </div>
+    </div>
+
+    <!-- Custom JavaScript -->
+    <script src="./static/scripts.js"></script>
+</body>
+</html>
