@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Text Completeness Evaluator</title>
+  <style>
+    /* Base styling */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f4f6f8;
+      color: #333;
+    }
+    h1 {
+      color: #2c3e50;
+      font-size: 28px;
+      text-align: center;
+    }
+    h2, h3 {
+      color: #34495e;
+      font-weight: 600;
+    }
+    /* Card layout */
+    .card {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+      padding: 20px;
+    }
+    /* Styled input fields and button */
+    input[type="password"], input[type="text"], textarea {
+      width: calc(100% - 20px);
+      padding: 10px;
+      margin: 5px 0 15px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+    button {
+      background-color: #3498db;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #2980b9;
+    }
+    /* Loading state */
+    .loading {
+      color: #888;
+      font-style: italic;
+      margin-left: 5px;
+    }
+    /* Question styling */
+    .question {
+      display: flex;
+      align-items: center;
+      margin: 10px 0;
+      flex-wrap: wrap;
+    }
+    .question p {
+      margin: 0;
+      flex: 1;
+    }
+    .attitude {
+      margin-left: 15px;
+      color: #888;
+    }
+    .answer {
+      margin-left: 10px;
+      color: #2980b9;
+    }
+    .dimension-score {
+      font-weight: bold;
+    }
+    /* Rating colors */
+    .low-score { color: #e74c3c; }
+    .medium-score { color: #f39c12; }
+    .high-score { color: #27ae60; }
+    /* Checkbox styling */
+    .dimension-select {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      padding: 15px 0;
+      border-top: 1px solid #ddd;
+    }
+    /* Responsive Design */
+    @media (max-width: 600px) {
+      .question {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .attitude,
+      .answer {
+        margin-left: 0;
+        margin-top: 5px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <h1>Text Completeness Evaluator</h1>
+    <div class="card">
+      <label for="apiKey">API Key:</label>
+      <input type="password" v-model="apiKey" id="apiKey" placeholder="Enter your API key">
+      <label for="model">Model:</label>
+      <input type="text" v-model="model" id="model" placeholder="e.g., gpt-4">
+      <textarea v-model="inputText" rows="5" placeholder="Enter your text here"></textarea>
+      <button @click="startEvaluation">Evaluate</button>
+    </div>
+
+    <div v-if="evaluation">
+      <h2>Evaluation Results</h2>
+      <div v-for="step in steps" :key="step" class="card">
+        <h3>
+          {{ step }}
+          <span class="dimension-score" :class="getDimensionScoreClass(step)">
+            [{{ getDimensionScore(step) }} - {{ getDimensionRating(step) }}]
+          </span>
+        </h3>
+        <div v-for="(questionObj, index) in questions[step]" :key="index" class="question">
+          <p>
+            <span v-if="questionObj.loading" class="loading">Loading...</span>
+            <span v-else>
+              <span :class="'score-' + questionObj.score">Score: {{ questionObj.score }}</span>
+              - {{ questionObj.question }}
+              <span v-if="questionObj.score < 2" class="attitude">
+                - Inferred Attitude:
+                <select v-model="questionObj.attitude" :class="{'attitude-unknown': questionObj.attitude === 'unknown'}">
+                  <option value="positive">Positive</option>
+                  <option value="negative">Negative</option>
+                  <option value="neutral">Neutral</option>
+                  <option value="unknown">Unknown</option>
+                </select>
+              </span>
+              <span v-if="questionObj.answer" class="answer">- Answer: {{ questionObj.answer }}</span>
+            </span>
+          </p>
+        </div>
+      </div>
+
+      <h2>Select Dimensions to Improve</h2>
+      <div class="dimension-select card">
+        <label v-for="step in steps" :key="step">
+          <input type="checkbox" v-model="selectedDimensions" :value="step">
+          {{ step }}
+        </label>
+      </div>
+      <button @click="requestImprovement">Improve Text</button>
+      <div v-if="improvedText" class="card">
+        <h2>Improved Text</h2>
+        <p>{{ improvedText }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Include Vue.js -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+  <!-- Include the application script -->
+  <script src="context_lpr.js"></script>
+</body>
+</html>
